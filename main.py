@@ -7,11 +7,11 @@ api = Api(app)
 
 words = {"furniture": ["der Tisch", "der Stuhl", "das Regal", "das Sofa", "das Bett"], "vegetables": ["die Kartoffel", "die Paprika", "die Karotte", "die Zwiebel"]}
 
-class HelloWorld(Resource):
+class GermanWords(Resource):
     def get(self, category):
         return {"todays word": choice(words[category])}
 
-api.add_resource(HelloWorld, "/get-word/<string:category>")
+api.add_resource(GermanWords, "/get-word/<string:category>")
 
 if __name__ == "__main__":
     app.run(debug=True)
