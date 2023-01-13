@@ -1,9 +1,14 @@
 from flask import Flask, request
-from flask_restful import Api, Resource
+from flask_restful import Api, Resource, reqparse
 from random import choice
 
 app = Flask(__name__)
 api = Api(app)
+
+word_post_args = reqparse.RequestParser()
+word_post_args.add_argument("category", type=str, help="category of the new word")
+word_post_args.add_argument("german", type=str, help="the new word in German")
+word_post_args.add_argument("english", type=str, help="the new word in English")
 
 words = {"furniture": {"der Tisch": "table", "der Stuhl": "chair", "das Regal": "shelves", "das Sofa": "sofa", "das Bett": "bed"}, "vegetables": {"die Kartoffel": "potato", "die Paprika": "(bell) pepper", "die Karotte": "carrot", "die Zwiebel": "onion"}}
 
@@ -13,8 +18,9 @@ class GermanWords(Resource):
 
 class GermanWordsAdd(Resource):
     def post(self):
-        print(request.form["german"])
-        return "New word added!"
+        args = word_post_args.parse_args()
+        #print(args)
+        return {"message": "New word added!"}
 
 api.add_resource(GermanWords, "/get-word/<string:category>")
 api.add_resource(GermanWordsAdd, "/add-word")
