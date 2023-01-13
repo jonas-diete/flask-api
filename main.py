@@ -18,8 +18,9 @@ class GermanWords(Resource):
 
 class GermanWordsAdd(Resource):
     def post(self):
-        args = word_post_args.parse_args()
-        #print(args)
+        # still failing - debug
+        # args = word_post_args.parse_args()
+        print(request.form['german'])
         return {"message": "New word added!"}
 
 api.add_resource(GermanWords, "/get-word/<string:category>")
