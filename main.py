@@ -6,9 +6,9 @@ app = Flask(__name__)
 api = Api(app)
 
 word_post_args = reqparse.RequestParser()
-word_post_args.add_argument("category", type=str, help="category of the new word")
-word_post_args.add_argument("german", type=str, help="the new word in German")
-word_post_args.add_argument("english", type=str, help="the new word in English")
+word_post_args.add_argument("category", type=str, help="category of new word required", required=True)
+word_post_args.add_argument("german", type=str, help="new word in German required", required=True)
+word_post_args.add_argument("english", type=str, help="new word in English required", required=True)
 
 words = {"furniture": {"der Tisch": "table", "der Stuhl": "chair", "das Regal": "shelves", "das Sofa": "sofa", "das Bett": "bed"}, "vegetables": {"die Kartoffel": "potato", "die Paprika": "(bell) pepper", "die Karotte": "carrot", "die Zwiebel": "onion"}}
 
