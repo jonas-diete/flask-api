@@ -12,6 +12,10 @@ word_post_args.add_argument("english", type=str, help="new word in English requi
 
 words = {"furniture": {"der Tisch": "table", "der Stuhl": "chair", "das Regal": "shelves", "das Sofa": "sofa", "das Bett": "bed"}, "vegetables": {"die Kartoffel": "potato", "die Paprika": "(bell) pepper", "die Karotte": "carrot", "die Zwiebel": "onion"}}
 
+def create_category_if_not_existing(category):
+    if not category in words:
+        words[category] = {}
+
 class GermanWords(Resource):
     def get(self, category):
         return {"todays word": choice(list(words[category].items()))}
@@ -19,9 +23,7 @@ class GermanWords(Resource):
 class GermanWordsAdd(Resource):
     def post(self):
         args = word_post_args.parse_args()
-        # if new category doesn't exist yet, we create it first
-        if not args["category"] in words:
-            words[args["category"]] = {}
+        create_category_if_not_existing(args["category"])
         # Adding word to our dictionary
         words[args["category"]][args["german"]] = args["english"]
         print(words)
