@@ -16,11 +16,11 @@ def create_category_if_not_existing(category):
         words[category] = {}
 
 class GermanWords(Resource):
-    def get(self, category):
+    def get(self, category): 
         # returns a random word from the chosen category
         return {"todays word": choice(list(words[category].items()))}
 
-    def post(self, category):
+    def post(self, category): 
         args = word_post_args.parse_args()
         create_category_if_not_existing(category)
         # Adding word to our dictionary
