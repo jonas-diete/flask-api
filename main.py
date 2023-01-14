@@ -19,7 +19,13 @@ class GermanWords(Resource):
 class GermanWordsAdd(Resource):
     def post(self):
         args = word_post_args.parse_args()
-        return {"added word": args}
+        # if new category doesn't exist yet, we create it first
+        if not args["category"] in words:
+            words[args["category"]] = {}
+        # Adding word to our dictionary
+        words[args["category"]][args["german"]] = args["english"]
+        print(words)
+        return {"added word": args}, 201
 
 api.add_resource(GermanWords, "/get-word/<string:category>")
 api.add_resource(GermanWordsAdd, "/add-word")
